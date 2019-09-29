@@ -25,7 +25,7 @@ module SPI_Slave
   #(parameter SPI_MODE = 0)
   (
    // Control/Data Signals,
-   input            i_Rst_L,    // FPGA Reset
+   input            i_Rst_L,    // FPGA Reset, active low
    input            i_Clk,      // FPGA Clock
    output reg       o_RX_DV,    // Data Valid pulse (1 clock cycle)
    output reg [7:0] o_RX_Byte,  // Byte received on MOSI
@@ -36,7 +36,7 @@ module SPI_Slave
    input      i_SPI_Clk,
    output reg o_SPI_MISO,
    input      i_SPI_MOSI,
-   input      i_SPI_CS_n
+   input      i_SPI_CS_n        // active low
    );
 
 
@@ -154,6 +154,7 @@ module SPI_Slave
   always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
   begin
     if (i_SPI_CS_n)
+    begin
       r_TX_Bit_Count <= 3'b111;  // Send MSb first
       r_SPI_MISO_Bit <= r_TX_Byte[3'b111];  // Reset to MSb
     end
