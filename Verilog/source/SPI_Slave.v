@@ -190,7 +190,7 @@ module SPI_Slave
   // Otherwise just send the normal MISO data
   assign w_SPI_MISO_Mux = r_Preload_MISO ? r_TX_Byte[3'b111] : r_SPI_MISO_Bit;
 
-  // Tri-statae MISO when CS is high.  Allows for multiple slaves to talk.
+  // Tri-state MISO when CS is high.  Allows for multiple slaves to talk.
   assign o_SPI_MISO = i_SPI_CS_n ? 1'bZ : w_SPI_MISO_Mux;
 
 endmodule // SPI_Slave
