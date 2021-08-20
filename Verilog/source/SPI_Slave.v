@@ -135,7 +135,7 @@ module SPI_Slave
 
   // Control preload signal.  Should be 1 when CS is high, but as soon as
   // first clock edge is seen it goes low.
-  always @(posedge w_SPI_CLK or posedge i_SPI_CS_n)
+  always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
   begin
     if (i_SPI_CS_n)
     begin
@@ -154,6 +154,7 @@ module SPI_Slave
   always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
   begin
     if (i_SPI_CS_n)
+      begin
       r_TX_Bit_Count <= 3'b111;  // Send MSb first
       r_SPI_MISO_Bit <= r_TX_Byte[3'b111];  // Reset to MSb
     end
